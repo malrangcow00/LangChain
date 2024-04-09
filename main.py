@@ -4,11 +4,14 @@ from langchain_core.prompts import PromptTemplate
 # To use it run `pip install -U langchain-openai` and import as `from langchain_openai import ChatOpenAI
 from langchain_openai import ChatOpenAI
 from langchain.chains import LLMChain
+from Agents.linkedin_lookup_agent import lookup as linkedin_lookup_agent
 
 from Third_Parties.linkedin import scrape_linkedin_profile
 
 if __name__ == "__main__":
     print('Hello, Langchain!')
+
+    linkedin_profile_url = linkedin_lookup_agent(name="Harrison Chase")
 
     summary_template = """
         given the LinkedIn information {information} about a person from I want you to create:
@@ -24,7 +27,7 @@ if __name__ == "__main__":
     chain = LLMChain(llm=llm, prompt=summary_prompt_template)
 
     linkedin_data = scrape_linkedin_profile(
-        linkedin_profile_url="https://www.linkedin.com/in/harrison-chase-961287118/"
+        linkedin_profile_url=linkedin_profile_url
     )
 
     # The function `run` was deprecated in LangChain 0.1.0 and will be removed in 0.2.0. Use invoke instead.

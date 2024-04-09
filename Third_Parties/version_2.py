@@ -5,7 +5,7 @@ from langchain_core.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
 from langchain.chains import LLMChain
 
-from Third_Parties.linkedin import scrape_linkedin_profile
+from linkedin import scrape_linkedin_profile
 
 if __name__ == "__main__":
     print('Hello, Langchain!')
@@ -28,4 +28,7 @@ if __name__ == "__main__":
     )
 
     # The function `run` was deprecated in LangChain 0.1.0 and will be removed in 0.2.0. Use invoke instead.
-    print(chain.run(information=linkedin_data))
+    # print(chain.run(information=linkedin_data))
+    # invoke 사용시 응답이 text로 들어감 ...
+    response = chain.invoke(input={"information": linkedin_data})
+    print(response.get("text"))
